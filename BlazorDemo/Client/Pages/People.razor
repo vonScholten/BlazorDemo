@@ -1,0 +1,87 @@
+﻿@page "/people"
+@using BlazorDemo.Shared
+@inject HttpClient Http
+
+<h3>People</h3>
+
+@if (people == null)
+{
+    if (isLoading == true)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <button class="btn btn-info" @onclick="@LoadPeople">Load People</button>
+    }
+}
+else
+{
+    <div class="row">
+        @foreach (var person in people)
+        {
+            <div class="col-lg-6 col-md-12 mb-2">
+                <form class="card rounded-0">
+                    <div class="card-header p-0">
+                        <div class="bg-info text-white text-center py-2">
+                            <h3>
+                                <i class="oi oi-envelope-closed"></i> Contact Info
+                            </h3>
+                            <p class="m-0">
+                                The contact information for @person.FullName
+                            </p>
+                        </div>
+                    </div>
+                    <dic class="card-body p-3">
+                        <div class="form-group">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="oi oi-person text-info"></i>
+                                    </div>
+                                    <input type="text" placeholder="First Name" @bind="@person.FirstName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="oi oi-home text-info"></i>
+                                    </div>
+                                    <input type="text" placeholder="Last Name" @bind="@person.LastName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger rounded-0 py-2 px-4"
+                                    @onclick="@(() => Save(person))">
+                                save
+                            </button>
+                        </div>
+                    </dic>
+                </form>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<PersonModel> people;
+    private bool isLoading = false;
+
+    private async Task LoadPeople()
+    {
+        isLoading = true;
+        await Task.Delay(1000);
+
+        people = await Http.GetJsonAsync<List<PersonModel>>(@"person\all");
+
+        isLoading = false;
+    }
+
+    private async Task Save(PersonModel person)
+    {
+        await Http.PostJsonAsync("person", person);
+    }
+}

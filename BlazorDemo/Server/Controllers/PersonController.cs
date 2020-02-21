@@ -19,10 +19,9 @@ namespace BlazorDemo.Server.Controllers
             return new List<PersonModel>
             {
                 new PersonModel{FirstName = "Frederik", LastName = "von Scholten", AccountBalance = 0.0M },
-                new PersonModel { FirstName = "Frederik I", LastName = "von Scholten", AccountBalance = 0.1M },
-                new PersonModel{FirstName = "Frederik II", LastName = "von Scholten", AccountBalance = 0.2M },
-                new PersonModel{FirstName = "Frederik III", LastName = "von Scholten", AccountBalance = 0.3M }
-            };   
+                new PersonModel { FirstName = "Iman", LastName = "Chelhi", AccountBalance = 0.1M },
+                new PersonModel{FirstName = "Sarina", LastName = "Bibæk", AccountBalance = 0.2M },
+            };
         }
 
         [HttpPost]

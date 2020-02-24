@@ -5,17 +5,20 @@ using System.ComponentModel.DataAnnotations; // validation of forms
 
 namespace BlazorDemo.Shared
 {
-    public class PersonModel
+    public class UserModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Username is mandatory")]
+        [StringLength(10, ErrorMessage = "username is too long")]
+        public string Username { get; set; }
         [Required(ErrorMessage = "First name is mandatory")]
-        [StringLength(10, ErrorMessage = "First name is too long.")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Last name is mandatory")]
-        [StringLength(10, ErrorMessage = "Last name is too long.")]
         public string LastName { get; set; }
-        public decimal AccountBalance { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+        public DateTime Birthday { get; set; }
+        public string Email { get; set; }
+        public string Img { get; set; }
 
     }
 }

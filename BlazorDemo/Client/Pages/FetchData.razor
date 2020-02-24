@@ -19,17 +19,24 @@ else
                 <th>Temp. (C)</th>
                 <th>Temp. (F)</th>
                 <th>Summary</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var forecast in forecasts)
             {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
+            <tr>
+                <td>@forecast.Date.ToShortDateString()</td>
+                <td>@forecast.TemperatureC</td>
+                <td>@forecast.TemperatureF</td>
+                <td>@forecast.Summary</td>
+                <td>
+                    <!-- Edit the current forecast -->
+                    <button class="btn btn-primary" @onclick="(() => Edit())">
+                        Edit
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -43,4 +50,8 @@ else
         forecasts = await Http.GetJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
 
+    void Edit()
+    {
+
+    }
 }

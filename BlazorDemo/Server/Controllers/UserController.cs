@@ -18,9 +18,8 @@ namespace BlazorDemo.Server.Controllers
         {
             return new List<UserModel>
             {
-                new UserModel{FirstName = "Frederik", LastName = "von Scholten", Img="https://www.telegraph.co.uk/content/dam/Pets/spark/royal-canin/tabby-kitten-small-xlarge.jpg" },
-                new UserModel { FirstName = "Iman", LastName = "Chelhi", Img="https://www.telegraph.co.uk/content/dam/Pets/spark/royal-canin/tabby-kitten-small-xlarge.jpg" },
-                new UserModel{FirstName = "Sarina", LastName = "Bibæk", Img="https://www.telegraph.co.uk/content/dam/Pets/spark/royal-canin/tabby-kitten-small-xlarge.jpg" },
+                new UserModel{Username = "Toothless", FirstName = "Frederik", LastName = "von Scholten", Img="https://d.wattpad.com/story_parts/497755278/images/15049796c1ac291360005534504.jpg" },
+                new UserModel{Username = "Light Fury", FirstName = "Pernille Marie", LastName = "Lindschov Hansen", Img="https://vignette.wikia.nocookie.net/loveinterest/images/4/4e/Light_Fury_Headshot.jpg/revision/latest?cb=20181011175457" },
             };
         }
 

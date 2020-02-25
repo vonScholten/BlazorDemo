@@ -2,9 +2,9 @@
 @inject HttpClient Http
 
 <div class="row">
-    <div class="col-lg-6 col-md-12 mb-2">
+    <div class="container-fluid">
         <form class="card text-center">
-            <img src="@user.Img" class="card-img-top" alt="Profile picture">
+            <img src="@user.Img" class="card-img-top" alt="Profile picture" width="50">
             <div class="card-header">                
                 <h5>
                     @user.FullName
@@ -88,7 +88,7 @@
 
     private async Task Save()
     {
-            await Http.PostJsonAsync("person", user);
+            await Http.PostJsonAsync("user", user);
             Console.WriteLine("Saved");
     }
 

@@ -8,90 +8,90 @@
 
 @if (users == null)
 {
-    <p><em>Loading...</em></p>
+  <p><em>Loading...</em></p>
 }
 else
 {
-    <div class="container-fluid">
-        <table class="table table-sm">
-            <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Username</th>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Birthday</th>
-                    <th>Email</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in users)
-                {
-                    <tr>
-                        <td>@user.Id</td>
-                        <td>@user.Username</td>
-                        <td>
-                            @if (showExpand && user == expand)
-                            {
-                                <button type="button" class="btn btn-secondary btn-sm" @onclick="(() => Expand(user))">-</button>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-secondary btn-sm" @onclick="(() => Expand(user))">+</button>
-                            }
-                        </td>
-                        <td>
-                            <div>
-                                @user.FullName
-                            </div>
+  <div class="container-fluid">
+    <table class="table table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th></th>
+          <th>Name</th>
+          <th>Birthday</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var user in users)
+        {
+          <tr>
+            <td>@user.Id</td>
+            <td>@user.Username</td>
+            <td>
+              @if (showExpand && user == expand)
+              {
+                <button type="button" class="btn btn-secondary btn-sm" @onclick="(() => Expand(user))">-</button>
+              }
+              else
+              {
+                <button type="button" class="btn btn-secondary btn-sm" @onclick="(() => Expand(user))">+</button>
+              }
+            </td>
+            <td>
+              <div>
+                @user.FullName
+              </div>
 
-                            @if (showExpand && user == expand)
-                            {
-                                <div>
-                                    @user.FirstName
-                                </div>
-                                <div>
-                                    @user.LastName
-                                </div>
-                            }
-                        </td>
-                        <td>@user.Birthday</td>
-                        <td>@user.Email</td>
-                        <td>
-                            <!-- Edit the current forecast -->
-                            <button class="btn btn-primary" @onclick="(() => Edit(user))">
-                                Edit
-                            </button>
+              @if (showExpand && user == expand)
+              {
+                <div>
+                  @user.FirstName
+                </div>
+                <div>
+                  @user.LastName
+                </div>
+              }
+            </td>
+            <td>@user.Birthday</td>
+            <td>@user.Email</td>
+            <td>
+              <!-- Edit the current forecast -->
+              <button class="btn btn-primary" @onclick="(() => Edit(user))">
+                Edit
+              </button>
 
-                            @if (showEdit)
-                            {
-                                <!-- This is the popup to create or edit a forecast -->
-                                <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3 class="modal-title">Edit User</h3>
-                                                <!-- Button to close the popup -->
-                                                <button type="button" class="close"
-                                                        @onclick="CloseEdit">
-                                                    <span aria-hidden="true">X</span>
-                                                </button>
-                                            </div>
-                                            <!-- Edit form for the current forecast -->
-                                            <div class="modal-body">
-                                                <Profile user="selected"></Profile>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+              @if (showEdit)
+              {
+                <!-- This is the popup to create or edit a forecast -->
+                <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title">Edit User</h3>
+                        <!-- Button to close the popup -->
+                        <button type="button" class="close"
+                                @onclick="CloseEdit">
+                          <span aria-hidden="true">X</span>
+                        </button>
+                      </div>
+                      <!-- Edit form for the current forecast -->
+                      <div class="modal-body">
+                        <Profile user="selected"></Profile>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
 }
 
@@ -99,37 +99,37 @@ else
 
 
 @code {
-    private List<UserModel> users;
-    private bool showEdit = false;
-    private UserModel selected;
-    private UserModel expand;
-    private bool showExpand = false;
+  private List<UserModel> users;
+  private bool showEdit = false;
+  private UserModel selected;
+  private UserModel expand;
+  private bool showExpand = false;
 
-    protected override async Task OnInitializedAsync()
+  protected override async Task OnInitializedAsync()
+  {
+    users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");
+  }
+
+  void Edit(UserModel user)
+  {
+    Console.WriteLine("edit");
+    showEdit = true;
+    selected = user;
+  }
+
+  void CloseEdit()
+  {
+    showEdit = false;
+  }
+
+  void Expand(UserModel user)
+  {
+    if (showExpand == false)
     {
-        users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");
+      showExpand = true;
+      expand = user;
     }
 
-    void Edit(UserModel user)
-    {
-        Console.WriteLine("edit");
-        showEdit = true;
-        selected = user;
-    }
-
-    void CloseEdit()
-    {
-        showEdit = false;
-    }
-
-    void Expand(UserModel user)
-    {
-        if (showExpand == false)
-        {
-            showExpand = true;
-            expand = user;
-        }
-
-        else showExpand = false;
-    }
+    else showExpand = false;
+  }
 }

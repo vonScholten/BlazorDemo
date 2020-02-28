@@ -181,3 +181,24 @@ app {
         display: block;
     }
 }
+
+.btn-circle {
+  display: block;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border-radius: 50%;
+}
+ .btn-circle:hover {
+  background-color: lightgray;
+  color: white;
+}
+
+.item-circle {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-color: antiquewhite;
+  overflow: hidden;
+}

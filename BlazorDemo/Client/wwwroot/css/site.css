@@ -196,8 +196,8 @@ app {
 
 .item-circle {
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   border-color: antiquewhite;
   overflow: hidden;

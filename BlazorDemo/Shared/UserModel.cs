@@ -19,6 +19,5 @@ namespace BlazorDemo.Shared
     public DateTime Birthday { get; set; }
     public string Email { get; set; }
     public string Img { get; set; }
-
   }
 }

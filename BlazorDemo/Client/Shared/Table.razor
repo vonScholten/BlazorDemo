@@ -1,0 +1,165 @@
+﻿@using BlazorDemo.Shared
+@inject HttpClient Http
+
+<h1>Users</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (users == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <input type="checkbox" id="select_all" />
+          </th>
+          @foreach(var field in new UserModel().GetType().GetProperties())
+          {
+            @if(field.Name != "Img") 
+            { 
+              <th>@field.Name</th>
+            }
+            else
+            {
+              <th></th>
+            }
+          }
+
+          <!--
+          <th>#</th>
+          <th>Username</th>
+          <th></th>
+          <th>Name</th>
+          <th>Birthday</th>
+          <th>Email</th>
+  -->
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var user in users)
+        {
+        <tr>
+          <td class="align-middle"><img src="@user.Img" class="card-img-top item-circle" alt="..." /></td>
+          <td class="align-middle">
+            <input type="checkbox" id="select" />
+          </td>
+          @foreach (var field in user.GetType().GetProperties())
+          {
+
+            @if (field.Name != "Img")
+            {
+              <td class="align-middle">
+                @field.GetValue(user)
+              </td>
+            }
+            else
+            {
+              <td></td>
+            }
+          }
+          <td class="align-middle">
+            <button class="btn btn-circle" @onclick="(() => Edit(user))">
+              <i class="material-icons">edit</i>
+            </button>
+
+            @if (showEdit)
+            {
+              <!-- This is the popup to create or edit a forecast -->
+              <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <!-- Button to close the popup -->
+                      <button type="button" class="close" @onclick="CloseEdit">
+                        <span aria-hidden="true">
+                          <i class="material-icons">close</i>
+                        </span>
+                      </button>
+                    </div>
+                    <!-- Edit form for the current forecast -->
+                    <div class="modal-body">
+                      <Profile user="selected"></Profile>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </td>
+
+          <td class="align-middle">
+            <button class="btn btn-circle" @onclick="(() => Delete(user))">
+              <i class="material-icons">delete</i>
+            </button>
+          </td>
+        </tr>
+
+          <!-- Expanding details row -->
+          @if (expand == user)
+          {
+            <tr>
+              <td colspan="4">
+                <div>
+                  @user.FirstName
+                </div>
+              </td>
+              <td colspan="4">
+                <div>
+                  @user.LastName
+                </div>
+              </td>
+            </tr>
+          }
+        }
+
+      </tbody>
+    </table>
+  </div>
+}
+
+@code {
+
+  private List<UserModel> users;
+  private bool showEdit = false;
+  private UserModel selected;
+  private UserModel expand;
+
+  protected override async Task OnInitializedAsync()
+  {
+    users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");  
+  }
+
+  void Edit(UserModel user)
+  {
+    Console.WriteLine("edit");
+    showEdit = true;
+    selected = user;
+  }
+
+  void CloseEdit()
+  {
+    showEdit = false;
+  }
+
+  void Delete(UserModel user)
+  {
+    users.Remove(user);
+  }
+
+  void Expand(UserModel user)
+  {
+    expand = user;
+  }
+
+  void Collaps(UserModel user)
+  {
+    expand = null;
+  }
+}

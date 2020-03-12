@@ -1,9 +1,6 @@
 ﻿@using BlazorDemo.Shared
 @inject HttpClient Http
 
-<h1>Users</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
 
 @if (users == null)
 {
@@ -11,146 +8,144 @@
 }
 else
 {
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th></th>
-          <th>
-            <input type="checkbox" id="select_all" />
-          </th>
-          <th>#</th>
-          <th>Username</th>
-          <th></th>
-          <th>Name</th>
-          <th>Birthday</th>
-          <th>Email</th>
-          <th><!-- edit --></th>
-          <th><!-- delete --></th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var user in users)
-        {
+<div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
           <tr>
-            <td class="align-middle"><img src="@user.Img" class="card-img-top item-circle" alt="..." /></td>
-            <td class="align-middle">
-              <input type="checkbox" id="select" />
-            </td>
-            <td class="align-middle">@user.Id</td>
-            <td class="align-middle">@user.Username</td>
-            <td class="align-middle">
-              @if (expand == user)
-              {
-                <button type="button" class="btn btn-circle" @onclick="(() => Collaps(user))"><i class="material-icons">keyboard_arrow_up</i></button>
-              }
-              else
-              {
-                <button type="button" class="btn btn-circle" @onclick="(() => Expand(user))"><i class="material-icons">keyboard_arrow_down</i></button>
-              }
+            <th>
+              <input type="checkbox" id="select_all" />
+            </th>
+            <th>#</th>
+            <th>Username</th>
+            <th></th>
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>Email</th>
+            <th><!-- edit --></th>
+            <th><!-- delete --></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var user in users)
+          {
+            <tr>
+              <!--<td class="align-middle"><img src="@user.Img" class="card-img-top item-circle" alt="..." /></td>-->
+              <td class="align-middle">
+                <input type="checkbox" id="select" />
+              </td>
+              <td class="align-middle"><span class="badge badge-primary">@user.Id</span></td>
+              <td class="align-middle">@user.Username</td>
+              <td class="align-middle">
+                @if (expand == user)
+                {
+                  <button type="button" class="btn btn-circle material-icons" @onclick="(() => Collaps(user))">keyboard_arrow_up</button>
+                }
+                else
+                {
+                  <button type="button" class="btn btn-circle material-icons" @onclick="(() => Expand(user))">keyboard_arrow_down</button>
+                }
 
-            </td>
-            <td class="align-middle">
-              <div>
-                @user.FullName
-              </div>
-            </td>
-            <td class="align-middle">@user.Birthday</td>
-            <td class="align-middle">@user.Email</td>
-            <td class="align-middle">
-              <button class="btn btn-circle" @onclick="(() => Edit(user))">
-                <i class="material-icons">edit</i>
-              </button>
+              </td>
+              <td class="align-middle">
+                <div>
+                  @user.FullName
+                </div>
+              </td>
+              <td class="align-middle">@user.Birthday</td>
+              <td class="align-middle">@user.Email</td>
+              <td class="align-middle">
+                <button class="btn btn-circle material-icons" @onclick="(() => Edit(user))">edit</button>
 
-              @if (showEdit)
-              {
-                <!-- This is the popup to create or edit a forecast -->
-                <div class="modal" tabindex="-1" style="display:block" role="dialog">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <!-- Button to close the popup -->
-                        <button type="button" class="close" @onclick="CloseEdit">
-                          <span aria-hidden="true">
-                            <i class="material-icons">close</i>
-                          </span>
-                        </button>
-                      </div>
-                      <!-- Edit form for the current forecast -->
-                      <div class="modal-body">
-                        <Profile user="selected"></Profile>
+                @if (showEdit)
+                {
+                  <!-- This is the popup to create or edit a forecast -->
+                  <div class="modal" tabindex="-1" style="display:block" role="dialog">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <!-- Button to close the popup -->
+                          <button type="button" class="close" @onclick="CloseEdit">
+                            <span aria-hidden="true">
+                              <i class="material-icons">close</i>
+                            </span>
+                          </button>
+                        </div>
+                        <!-- Edit form for the current forecast -->
+                        <div class="modal-body">
+                          <Profile user="selected"></Profile>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              }
-            </td>
-
-            <td class="align-middle">
-              <button class="btn btn-circle" @onclick="(() => Delete(user))">
-                <i class="material-icons">delete</i>
-              </button>
-            </td>
-          </tr>
-
-          <!-- Expanding details row -->
-          @if (expand == user)
-          {
-            <tr>
-              <td colspan="4">
-                <div>
-                  @user.FirstName
-                </div>
+                }
               </td>
-              <td colspan="4">
-                <div>
-                  @user.LastName
-                </div>
+
+              <td class="align-middle">
+                <button class="btn btn-circle material-icons" @onclick="(() => Delete(user))">delete</button>
               </td>
             </tr>
+
+            <!-- Expanding details row -->
+            @if (expand == user)
+            {
+              <tr>
+                <td colspan="4">
+                  <div>
+                    @user.FirstName
+                  </div>
+                </td>
+                <td colspan="4">
+                  <div>
+                    @user.LastName
+                  </div>
+                </td>
+              </tr>
+            }
           }
-        }
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
-}
+      }
 
-@code {
-  private List<UserModel> users;
-  private bool showEdit = false;
-  private UserModel selected;
-  private UserModel expand;
 
-  protected override async Task OnInitializedAsync()
-  {
-    users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");
-  }
+      @code {
+    private List<UserModel> users;
+      private bool showEdit = false;
+      private UserModel selected;
+      private UserModel expand;
 
-  void Edit(UserModel user)
-  {
-    Console.WriteLine("edit");
-    showEdit = true;
-    selected = user;
-  }
+      protected override async Task OnInitializedAsync()
+      {
+        users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");
+      }
 
-  void CloseEdit()
-  {
-    showEdit = false;
-  }
+      void Edit(UserModel user)
+      {
+        Console.WriteLine("edit");
+        showEdit = true;
+        selected = user;
+      }
 
-  void Delete(UserModel user)
-  {
-    users.Remove(user);
-  }
+      void CloseEdit()
+      {
+        showEdit = false;
+      }
 
-  void Expand(UserModel user)
-  {
-    expand = user;
-  }
+      void Delete(UserModel user)
+      {
+        users.Remove(user);
+      }
 
-  void Collaps(UserModel user)
-  {
-    expand = null;
-  }
-}
+      void Expand(UserModel user)
+      {
+        expand = user;
+      }
+
+      void Collaps(UserModel user)
+      {
+        expand = null;
+      }
+      }

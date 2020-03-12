@@ -1,0 +1,30 @@
+﻿@using BlazorDemo.Shared
+@inject HttpClient Http
+
+  <div class="mb-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <button type="submit" class="btn border-secondary border-right-0 material-icons" @onclick="Advanced">search</button>
+      </div>
+      <input type="text" class="form-control border-secondary border-left-0 border-right-0">
+      <div class="input-group-append">
+        <button type="button" class="btn border-secondary border-left-0 material-icons" @onclick="Advanced">keyboard_arrow_down</button>
+      </div>
+    </div>
+    @if (_advanced)
+    {
+      <div class="card">
+        <i class="material-icons">search</i>
+      </div>
+    }
+  </div>
+
+@code {
+
+  bool _advanced = false;
+  public void Advanced()
+  {
+    _advanced = true;
+    Console.WriteLine("advanced search options");
+  }
+}

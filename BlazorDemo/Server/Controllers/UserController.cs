@@ -25,6 +25,7 @@ namespace BlazorDemo.Server.Controllers
         FirstName = "Frederik",
         LastName = "von Scholten",
         Img = "https://d.wattpad.com/story_parts/497755278/images/15049796c1ac291360005534504.jpg",
+        Birthday = DateTime.Now,
         Email = "frederik@toothless.com"
       });
       __.Add(new UserModel
@@ -33,6 +34,7 @@ namespace BlazorDemo.Server.Controllers
         Username = "Light Fury",
         FirstName = "Pernille Marie",
         LastName = "Lindschov Hansen",
+        Birthday = DateTime.Now,
         Img = "https://vignette.wikia.nocookie.net/loveinterest/images/4/4e/Light_Fury_Headshot.jpg/revision/latest?cb=20181011175457",
         Email = "light@fury.com"
       });
@@ -42,19 +44,32 @@ namespace BlazorDemo.Server.Controllers
         Username = "Maverick",
         FirstName = "Mikkel",
         LastName = "Refsgaard Schmidt-Nielsen",
+        Birthday = DateTime.Now,
         Img = "https://media1.s-nbcnews.com/j/newscms/2017_21/1216637/top-gun-movie-today-170524-inline-4_b7f9b1ce3dec3d29b5e181ee7481b46a.fit-760w.jpg",
         Email = "mikkel@maverick.com"
       });
+
       __.Add(new UserModel
       {
         Id = 3,
-        Username = "Marocco",
-        FirstName = "Iman",
-        LastName = "Chelhi",
-        Img = "https://www.contrepoints.org/wp-content/uploads/2011/02/800px-Flag_of_Morocco_svg1.png",
+        Username = "Anniks",
+        FirstName = "Annika",
+        LastName = "",
+        Birthday = DateTime.Now,
+        Img = "",
         Email = "iman@chelhi.com"
       });
 
+      __.Add(new UserModel
+      {
+        Id = 4,
+        Username = "Marocco",
+        FirstName = "Iman",
+        LastName = "Chelhi",
+        Birthday = DateTime.Now,
+        Img = "https://www.contrepoints.org/wp-content/uploads/2011/02/800px-Flag_of_Morocco_svg1.png",
+        Email = "iman@chelhi.com"
+      });
 
       string[] maleNames = new string[] { "Aaron", "Abdul", "Abe", "Abel", "Abraham", "Adam", "Adan", "Adolfo", "Adolph", "Adrian" };
       string[] femaleNames = new string[] { "Abby", "Abigail", "Adele", "Adrian" };

@@ -1,3 +1,41 @@
 ﻿@page "/"
+@using BlazorDemo.Shared
+@inject HttpClient Http
 
-<Table />
+@if (users == null)
+{
+  if (isLoading == true)
+  {
+    <p><em>Loading...</em></p>
+  }
+  else
+  {
+    <button class="btn btn-info" @onclick="@LoadPeople">Load People</button>
+  }
+}
+else
+{
+  <div class="col-lg-6 col-md-12 mb-2">
+    @foreach (var user in users)
+    {
+
+      <Profile user="user"></Profile>
+    }
+  </div>
+}
+
+@code {
+  private List<UserModel> users;
+  private bool isLoading = false;
+  private UserModel _personModel = new UserModel();
+
+  private async Task LoadPeople()
+  {
+    isLoading = true;
+    //await Task.Delay(1000);
+
+    users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");
+
+    isLoading = false;
+  }
+}

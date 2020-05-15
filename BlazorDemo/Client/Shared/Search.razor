@@ -4,7 +4,7 @@
   <div class="mb-3">
     <div class="input-group">
       <div class="input-group-prepend">
-        <button type="submit" class="btn border-secondary border-right-0 material-icons" @onclick="Advanced">search</button>
+        <button type="submit" class="btn border-secondary border-right-0 material-icons">search</button>
       </div>
       <input type="text" class="form-control border-secondary border-left-0 border-right-0">
       <div class="input-group-append">
@@ -13,9 +13,21 @@
     </div>
     @if (_advanced)
     {
-      <div class="card">
-        <i class="material-icons">search</i>
+    <div class="card p-3">
+      @for (int i = 0; i < 3; i++)
+      {
+      <div class="row">
+        <div class="col-sm">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button type="submit" class="btn border-secondary border-right-0 material-icons">search</button>
+            </div>
+            <input type="text" class="form-control border-secondary border-left-0" placeholder="search parameter @i">
+          </div>
+        </div>
       </div>
+      }
+    </div>
     }
   </div>
 
@@ -24,7 +36,9 @@
   bool _advanced = false;
   public void Advanced()
   {
-    _advanced = true;
+    if (!_advanced) _advanced = true;
+    else _advanced = false;
+
     Console.WriteLine("advanced search options");
   }
 }

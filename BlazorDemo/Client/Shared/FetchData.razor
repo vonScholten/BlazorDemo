@@ -112,14 +112,14 @@ else
 
 
       @code {
-    private List<UserModel> users;
+      private HashSet<UserModel> users;
       private bool showEdit = false;
       private UserModel selected;
       private UserModel expand;
 
       protected override async Task OnInitializedAsync()
       {
-        users = await Http.GetJsonAsync<List<UserModel>>(@"user\all");
+        users = await Http.GetJsonAsync<HashSet<UserModel>>(@"user\all");
       }
 
       void Edit(UserModel user)
